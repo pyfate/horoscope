@@ -1,74 +1,79 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>星座運勢分析</title>
+    <title>星座運勢分析系統</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link rel="stylesheet" href="style.css">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3914607163427066"
      crossorigin="anonymous"></script>
 </head>
 <body>
     <div class="header">
-        <h1>星座運勢分析</h1>
+        <h1>星座運勢分析系統</h1>
         <p class="subtitle">專業的星座分析，為您解析太陽和月亮星座，預測年度運勢</p>
     </div>
 
-    <form id="birthForm">
-        <div class="form-group">
-            <label for="birthDate">出生日期</label>
-            <input type="date" id="birthDate" required>
-        </div>
-
-        <div class="form-group">
-            <label>
-                <input type="checkbox" id="hasTime"> 我知道出生時間
-            </label>
-        </div>
-
-        <div class="form-group" id="timeGroup" style="display: none;">
-            <label for="birthTime">出生時間</label>
-            <input type="time" id="birthTime">
-        </div>
-
-        <div class="form-group">
-            <label for="timezone">時區</label>
-            <select id="timezone"></select>
-        </div>
-
-        <div class="form-group">
-            <label>
-                <input type="checkbox" id="includeYearMonth"> 查詢特定年月運勢
-            </label>
-        </div>
-
-        <div id="yearMonthGroup" style="display: none;">
+    <div class="container">
+        <form id="birthForm">
             <div class="form-group">
-                <label for="year">年份</label>
-                <select id="year"></select>
+                <label for="birthDate">出生日期</label>
+                <input type="date" id="birthDate" required>
             </div>
+
             <div class="form-group">
-                <label for="month">月份</label>
-                <select id="month">
-                    <option value="">選擇月份</option>
-                    <option value="1">1月</option>
-                    <option value="2">2月</option>
-                    <option value="3">3月</option>
-                    <option value="4">4月</option>
-                    <option value="5">5月</option>
-                    <option value="6">6月</option>
-                    <option value="7">7月</option>
-                    <option value="8">8月</option>
-                    <option value="9">9月</option>
-                    <option value="10">10月</option>
-                    <option value="11">11月</option>
-                    <option value="12">12月</option>
-                </select>
+                <label class="checkbox-label">
+                    <input type="checkbox" id="hasTime"> 
+                    <span>我知道出生時間</span>
+                </label>
             </div>
-        </div>
 
-        <button type="submit">計算星座</button>
-    </form>
+            <div class="form-group" id="timeGroup" style="display: none;">
+                <label for="birthTime">出生時間</label>
+                <input type="time" id="birthTime">
+            </div>
 
-    <div id="result"></div>
+            <div class="form-group">
+                <label for="timezone">時區</label>
+                <select id="timezone"></select>
+            </div>
+
+            <div class="form-group">
+                <label class="checkbox-label">
+                    <input type="checkbox" id="includeYearMonth">
+                    <span>查詢特定年月運勢</span>
+                </label>
+            </div>
+
+            <div id="yearMonthGroup" style="display: none;">
+                <div class="form-group">
+                    <label for="year">年份</label>
+                    <select id="year"></select>
+                </div>
+                <div class="form-group">
+                    <label for="month">月份</label>
+                    <select id="month">
+                        <option value="">選擇月份</option>
+                        <option value="1">1月</option>
+                        <option value="2">2月</option>
+                        <option value="3">3月</option>
+                        <option value="4">4月</option>
+                        <option value="5">5月</option>
+                        <option value="6">6月</option>
+                        <option value="7">7月</option>
+                        <option value="8">8月</option>
+                        <option value="9">9月</option>
+                        <option value="10">10月</option>
+                        <option value="11">11月</option>
+                        <option value="12">12月</option>
+                    </select>
+                </div>
+            </div>
+
+            <button type="submit">計算星座</button>
+        </form>
+
+        <div id="result"></div>
+    </div>
 
     <script src="script.js"></script>
 </body>
