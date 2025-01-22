@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>照片 GPS 讀取器</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/exif-js/2.3.0/exif.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        input { margin: 10px; }
+        #photo-preview { max-width: 100%; height: auto; margin-top: 10px; }
+        .info { margin-top: 10px; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <h2>上傳照片並解析 GPS 資訊</h2>
+    <input type="file" accept="image/*" capture="camera" id="photo-input">
+    <br>
+    <img id="photo-preview" style="display:none;">
+    <p class="info" id="gps-info">GPS 座標將顯示在這裡</p>
+
+    <script>
+        document.getElementById("photo-input").addEventListener("change", function(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = document.getElementById("photo-preview");
+                img.src = e.target.result;
+                img.style.display = "block";
+
+                // 解析 EXIF 資訊
+                EXIF.getData(file, function() {
+                    const lat = EXIF.getTag(this, "GPSLatitude");
+                    const lon = EXIF.getTag(this, "GPSLongitude");
+                    const latRef = EXIF.getTag(this, "GPSLatitudeRef") || "N";
+                    const lonRef = EXIF.getTag(this, "GPSLongitudeRef") || "E";
+
+                    if (lat && lon) {
+                        const latDec = convertDMSToDecimal(lat, latRef);
+                        const lonDec = convertDMSToDecimal(lon, lonRef);
+                        document.getElementById("gps-info").innerText = `經度: ${lonDec}, 緯度: ${latDec}`;
+                    } else {
+                        document.getElementById("gps-info").innerText = "未找到 GPS 座標";
+                    }
+                });
+            };
+            reader.readAsDataURL(file);
+        });
+
+        // 轉換 DMS（度/分/秒）格式為十進位 GPS 座標
+        function convertDMSToDecimal(dms, ref) {
+            let degrees = dms[0] ? dms[0].numerator / dms[0].denominator : 0;
+            let minutes = dms[1] ? dms[1].numerator / dms[1].denominator : 0;
+            let seconds = dms[2] ? dms[2].numerator / dms[2].denominator : 0;
+            let decimal = degrees + (minutes / 60) + (seconds / 3600);
+            return (ref === "S" || ref === "W") ? -decimal : decimal;
+        }
+    </script>
+
+</body>
+</html>
