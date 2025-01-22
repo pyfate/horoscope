@@ -51,7 +51,7 @@
                     } else if (lat && lon) {
                         const latDec = convertDMSToDecimal(lat, latRef);
                         const lonDec = convertDMSToDecimal(lon, lonRef);
-                        document.getElementById("gps-info").innerText = `經度: ${lonDec}, 緯度: ${latDec}`;
+                        document.getElementById("gps-info").innerText = `經度: ${lonDec}, 緯度: ${latDec}<br><a href="https://www.google.com/maps?q=${latDec},${lonDec}" target="_blank">在 Google 地圖查看</a>`;
                     } else {
                         document.getElementById("gps-info").innerText = "未找到 GPS 座標";
                     }
