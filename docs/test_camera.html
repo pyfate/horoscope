@@ -68,6 +68,10 @@
             let decimal = degrees + (minutes / 60) + (seconds / 3600);
             return (ref === "S" || ref === "W") ? -decimal : decimal;
         }
+
+        document.getElementById("gps-info").innerHTML = 
+            `經度: ${lonDec}, 緯度: ${latDec} 
+            <br><a href="https://www.google.com/maps?q=${latDec},${lonDec}" target="_blank">在 Google 地圖查看</a>`;
     </script>
 
 </body>
