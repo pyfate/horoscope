@@ -38,7 +38,17 @@
                     const latRef = EXIF.getTag(this, "GPSLatitudeRef") || "N";
                     const lonRef = EXIF.getTag(this, "GPSLongitudeRef") || "E";
 
-                    if (lat && lon) {
+                    if (!lat || !lon) {
+                        navigator.geolocation.getCurrentPosition(
+                            (position) => {
+                                document.getElementById("gps-info").innerText = 
+                                    `照片無 GPS 座標，當前位置: 經度 ${position.coords.longitude}, 緯度 ${position.coords.latitude}`;
+                            },
+                            (error) => {
+                                document.getElementById("gps-info").innerText = "照片無 GPS 座標，也無法獲取當前位置";
+                            }
+                        );
+                    } else if (lat && lon) {
                         const latDec = convertDMSToDecimal(lat, latRef);
                         const lonDec = convertDMSToDecimal(lon, lonRef);
                         document.getElementById("gps-info").innerText = `經度: ${lonDec}, 緯度: ${latDec}`;
